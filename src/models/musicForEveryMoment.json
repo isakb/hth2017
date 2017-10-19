@@ -1,0 +1,39 @@
+{
+  "ConsumerProducts.CoffeeMaker.Program.Beverage.Espresso":
+    [
+      "spotify:track:2q639nRzC2ufsFQaH6EBWw",
+      "spotify:track:3IRwLjfEmiZOkDvSiOP5hP"
+    ],
+
+  "ConsumerProducts.CoffeeMaker.Program.Beverage.EspressoMacchiato":
+    [
+      "spotify:track:5o49YYBTuhwQQPMy1e5O9p"
+    ],
+
+  "ConsumerProducts.CoffeeMaker.Program.Beverage.Coffee":
+    [
+      "spotify:track:4WOruM7TiQSETsWYy8bDSX",
+      "spotify:track:6w3PTK24KMiBjZp2GyzYND",
+      "spotify:track:3SD11QnefCc3RNfKzxKMmJ"
+    ],
+
+  "ConsumerProducts.CoffeeMaker.Program.Beverage.Cappuccino":
+    [
+      "spotify:track:3k8Yn4KMKsV4We5D0rMc9u"
+    ],
+
+  "ConsumerProducts.CoffeeMaker.Program.Beverage.LatteMacchiato":
+    [
+      "spotify:track:3Ghmv4cxg5RkRg6gx0Tp6m"
+    ],
+
+  "ConsumerProducts.CoffeeMaker.Program.Beverage.CaffeLatte":
+    [
+      "spotify:track:2L0fwDXNg1brk5Wt2YzuCJ"
+    ],
+
+  "Cooking.Oven.Program.HeatingMode.PizzaSetting":
+    [
+      "spotify:track:4dFJ1RKof1kTSTEp3CjcBE"
+    ]
+}

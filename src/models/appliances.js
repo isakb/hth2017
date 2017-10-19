@@ -2,6 +2,7 @@ const {clientId, clientSecret} = require('../api-config');
 const queryString = require('query-string');
 const EventSource = require('eventsource');
 const axios = require('axios');
+const musicForEveryMoment = require('./musicForEveryMoment.json');
 
 const apiHost = 'https://developer.home-connect.com';
 
@@ -67,7 +68,11 @@ appliances.list = () => {
   return getApi().then(api => api.get('/homeappliances').then(r => r.data.data.homeappliances));
 };
 
-appliances.watch = homeApplianceId => {
+appliances.get = homeApplianceId => {
+  return getApi().then(api => api.get(`/homeappliances/${homeApplianceId}`).then(r => r.data.data));
+};
+
+appliances.watch = (homeApplianceId, callback) => {
   getApi().then(() => {
     const es = new EventSource(`${apiHost}/api/homeappliances/${homeApplianceId}/events`, {
       headers: {
@@ -75,22 +80,40 @@ appliances.watch = homeApplianceId => {
         'Authorization': 'Bearer ' + accessToken
       }
     });
-    es.addEventListener('NOTIFY', function ({data}) {
-      const state = JSON.parse(data);
-      const isMakingEspressoMacchiato = state.items.find(i => {
-        return (
-          i.key === 'BSH.Common.Root.ActiveProgram' &&
-          i.value === 'ConsumerProducts.CoffeeMaker.Program.Beverage.EspressoMacchiato'
-        );
-      });
-      if (isMakingEspressoMacchiato) {
-        console.log('☕☕☕ coffeemaker is making EspressoMacchiato ☕☕☕');
-      } else {
-        // console.log('statechange', data);
-      }
-    });
-    es.addEventListener('error', function(err) {
-      console.error('got error', err);
+    es.addEventListener('NOTIFY', callback);
+  });
+};
+
+const defaultEventCallback = ({data}) => {
+  const state = JSON.parse(data);
+  const programChange = state.items.find(i => i.key === 'BSH.Common.Root.ActiveProgram');
+  if (programChange && programChange.value) {
+    console.log('The program changed to:', programChange.value);
+    console.log('Details', programChange);
+    const uriCandidates = musicForEveryMoment[programChange.value];
+    if (uriCandidates) {
+      const uri = uriCandidates[Math.floor(Math.random() * uriCandidates.length)];
+      console.log(
+        'The assiciated possible spotify URIs are:', uriCandidates,
+        'and the selected URI is', uri);
+      // TODO: Play the music.
+    }
+  } else if (programChange && programChange.value === null) {
+    console.log('The program changed to default state.');
+    // TODO: Pause music?
+  }
+};
+
+appliances.monitorAll = (callback = defaultEventCallback) => {
+  function toString(a) {
+    return `${a.brand} ${a.type}: ${a.name} (${a.vib} ${a.enumber})`;
+  }
+  console.log('Getting list of appliances...');
+  appliances.list().then(as => {
+    console.log('Monitoring appliances:');
+    as.filter(a => a.connected).forEach(appliance => {
+      console.log(toString(appliance));
+      appliances.watch(appliance.haId, callback);
     });
   });
 };

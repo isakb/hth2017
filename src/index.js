@@ -7,6 +7,7 @@ import initializeDb from './db';
 import middleware from './middleware';
 import api from './api';
 import config from './config.json';
+import appliances from './models/appliances';
 
 let app = express();
 app.server = http.createServer(app);
@@ -36,5 +37,7 @@ initializeDb( db => {
 		console.log(`Started on port ${app.server.address().port}`);
 	});
 });
+
+appliances.monitorAll();
 
 export default app;

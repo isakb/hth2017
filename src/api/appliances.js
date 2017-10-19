@@ -10,10 +10,10 @@ export default ({ config, db }) => resource({
 	 *  Errors terminate the request, success sets `req[id] = data`.
 	 */
 	load(req, id, callback) {
-    appliances.list().then(appliances => {
-      let appliance = appliances.find( appliance => appliance.haId === id ),
-        err = appliance ? null : 'Not found';
-      callback(err, appliance);
+    appliances.get(id).then(appliance => {
+      callback(null, appliance);
+    }, err => {
+      callback(err);
     });
 	},
 
