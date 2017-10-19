@@ -1,50 +1,50 @@
 import resource from 'resource-router-middleware';
-import brewers from '../models/brewers';
+import appliances from '../models/appliances';
 
 export default ({ config, db }) => resource({
 
 	/** Property name to store preloaded entity on `request`. */
-	id : 'brewer',
+	id : 'appliance',
 
 	/** For requests with an `id`, you can auto-load the entity.
 	 *  Errors terminate the request, success sets `req[id] = data`.
 	 */
 	load(req, id, callback) {
-		let brewer = brewers.find( brewer => brewer.id === id ),
-			err = brewer ? null : 'Not found';
-		callback(err, brewer);
+		let appliance = appliances.find( appliance => appliance.id === id ),
+			err = appliance ? null : 'Not found';
+		callback(err, appliance);
 	},
 
-	/** GET / - List all brewers */
+	/** GET / - List all appliances */
 	index({ params }, res) {
-		res.json(brewers);
+		appliances.list().then(appliances => res.json(appliances));
 	},
 
 	/** POST / - Create a new entity */
 	create({ body }, res) {
-		body.id = brewers.length.toString(36);
-		brewers.push(body);
+		body.id = appliances.length.toString(36);
+		appliances.push(body);
 		res.json(body);
 	},
 
 	/** GET /:id - Return a given entity */
-	read({ brewer }, res) {
-		res.json(brewer);
+	read({ appliance }, res) {
+		res.json(appliance);
 	},
 
 	/** PUT /:id - Update a given entity */
-	update({ brewer, body }, res) {
+	update({ appliance, body }, res) {
 		for (let key in body) {
 			if (key!=='id') {
-				brewer[key] = body[key];
+				appliance[key] = body[key];
 			}
 		}
 		res.sendStatus(204);
 	},
 
 	/** DELETE /:id - Delete a given entity */
-	delete({ brewer }, res) {
-		brewers.splice(brewers.indexOf(brewer), 1);
+	delete({ appliance }, res) {
+		appliances.splice(appliances.indexOf(appliance), 1);
 		res.sendStatus(204);
 	}
 });

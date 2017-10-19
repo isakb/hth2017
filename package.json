@@ -28,11 +28,14 @@
   "author": "Spotify",
   "license": "MIT",
   "dependencies": {
+    "axios": "^0.16.2",
     "body-parser": "^1.13.3",
     "compression": "^1.5.2",
     "cors": "^2.7.1",
+    "eventsource": "^1.0.5",
     "express": "^4.13.3",
     "morgan": "^1.8.0",
+    "query-string": "^5.0.0",
     "resource-router-middleware": "^0.6.0",
     "sse-node": "^1.0.2"
   },
