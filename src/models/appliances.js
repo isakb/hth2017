@@ -1,4 +1,4 @@
-const {clientId, clientSecret} = require('../.api-config.json');
+const {clientId, clientSecret} = require('../api-config');
 const queryString = require('query-string');
 const EventSource = require('eventsource');
 const axios = require('axios');

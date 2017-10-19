@@ -1,4 +1,4 @@
-FROM alpine:3.4
+FROM gcr.io/google-appengine/nodejs
 
 # File Author / Maintainer
 LABEL authors="Zouhir Chahoud <zouhir@zouhir.org>"
