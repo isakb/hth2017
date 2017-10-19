@@ -3,6 +3,7 @@ const queryString = require('query-string');
 const EventSource = require('eventsource');
 const axios = require('axios');
 const musicForEveryMoment = require('./musicForEveryMoment.json');
+import devices from './devices';
 
 const apiHost = 'https://developer.home-connect.com';
 
@@ -92,15 +93,16 @@ const defaultEventCallback = ({data}) => {
     console.log('Details', programChange);
     const uriCandidates = musicForEveryMoment[programChange.value];
     if (uriCandidates) {
-      const uri = uriCandidates[Math.floor(Math.random() * uriCandidates.length)];
+      const randomOffset = Math.floor(Math.random() * uriCandidates.length);
+      const uri = uriCandidates[randomOffset];
       console.log(
         'The assiciated possible spotify URIs are:', uriCandidates,
         'and the selected URI is', uri);
-      // TODO: Play the music.
+      devices.play(uriCandidates, randomOffset);
     }
   } else if (programChange && programChange.value === null) {
     console.log('The program changed to default state.');
-    // TODO: Pause music?
+    devices.pause();
   }
 };
 
