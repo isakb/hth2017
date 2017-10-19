@@ -1,50 +1,50 @@
 import resource from 'resource-router-middleware';
-import facets from '../models/facets';
+import brewers from '../models/brewers';
 
 export default ({ config, db }) => resource({
 
 	/** Property name to store preloaded entity on `request`. */
-	id : 'facet',
+	id : 'brewer',
 
 	/** For requests with an `id`, you can auto-load the entity.
 	 *  Errors terminate the request, success sets `req[id] = data`.
 	 */
 	load(req, id, callback) {
-		let facet = facets.find( facet => facet.id===id ),
-			err = facet ? null : 'Not found';
-		callback(err, facet);
+		let brewer = brewers.find( brewer => brewer.id === id ),
+			err = brewer ? null : 'Not found';
+		callback(err, brewer);
 	},
 
-	/** GET / - List all entities */
+	/** GET / - List all brewers */
 	index({ params }, res) {
-		res.json(facets);
+		res.json(brewers);
 	},
 
 	/** POST / - Create a new entity */
 	create({ body }, res) {
-		body.id = facets.length.toString(36);
-		facets.push(body);
+		body.id = brewers.length.toString(36);
+		brewers.push(body);
 		res.json(body);
 	},
 
 	/** GET /:id - Return a given entity */
-	read({ facet }, res) {
-		res.json(facet);
+	read({ brewer }, res) {
+		res.json(brewer);
 	},
 
 	/** PUT /:id - Update a given entity */
-	update({ facet, body }, res) {
+	update({ brewer, body }, res) {
 		for (let key in body) {
 			if (key!=='id') {
-				facet[key] = body[key];
+				brewer[key] = body[key];
 			}
 		}
 		res.sendStatus(204);
 	},
 
 	/** DELETE /:id - Delete a given entity */
-	delete({ facet }, res) {
-		facets.splice(facets.indexOf(facet), 1);
+	delete({ brewer }, res) {
+		brewers.splice(brewers.indexOf(brewer), 1);
 		res.sendStatus(204);
 	}
 });
