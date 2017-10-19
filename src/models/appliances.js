@@ -67,7 +67,7 @@ appliances.list = () => {
   return getApi().then(api => api.get('/homeappliances').then(r => r.data.data.homeappliances));
 };
 
-appliances.watch = (homeApplianceId) => {
+appliances.watch = homeApplianceId => {
   getApi().then(() => {
     const es = new EventSource(`${apiHost}/api/homeappliances/${homeApplianceId}/events`, {
       headers: {
@@ -75,13 +75,22 @@ appliances.watch = (homeApplianceId) => {
         'Authorization': 'Bearer ' + accessToken
       }
     });
-
-    es.addEventListener('NOTIFY', function (data) {
-      console.log('coffeemaker statechange', JSON.parse(data.data));
+    es.addEventListener('NOTIFY', function ({data}) {
+      const state = JSON.parse(data);
+      const isMakingEspressoMacchiato = state.items.find(i => {
+        return (
+          i.key === 'BSH.Common.Root.ActiveProgram' &&
+          i.value === 'ConsumerProducts.CoffeeMaker.Program.Beverage.EspressoMacchiato'
+        );
+      });
+      if (isMakingEspressoMacchiato) {
+        console.log('☕☕☕ coffeemaker is making EspressoMacchiato ☕☕☕');
+      } else {
+        // console.log('statechange', data);
+      }
     });
-
     es.addEventListener('error', function(err) {
-      console.log('got error', err);
+      console.error('got error', err);
     });
   });
 };

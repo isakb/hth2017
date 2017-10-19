@@ -10,9 +10,11 @@ export default ({ config, db }) => resource({
 	 *  Errors terminate the request, success sets `req[id] = data`.
 	 */
 	load(req, id, callback) {
-		let appliance = appliances.find( appliance => appliance.id === id ),
-			err = appliance ? null : 'Not found';
-		callback(err, appliance);
+    appliances.list().then(appliances => {
+      let appliance = appliances.find( appliance => appliance.haId === id ),
+        err = appliance ? null : 'Not found';
+      callback(err, appliance);
+    });
 	},
 
 	/** GET / - List all appliances */
@@ -30,21 +32,21 @@ export default ({ config, db }) => resource({
 	/** GET /:id - Return a given entity */
 	read({ appliance }, res) {
 		res.json(appliance);
+		appliances.watch(appliance.haId);
 	},
 
 	/** PUT /:id - Update a given entity */
 	update({ appliance, body }, res) {
-		for (let key in body) {
-			if (key!=='id') {
-				appliance[key] = body[key];
-			}
-		}
-		res.sendStatus(204);
+		// for (let key in body) {
+		// 	if (key!=='id') {
+		// 		appliance[key] = body[key];
+		// 	}
+		// }
+		res.sendStatus(418);
 	},
 
 	/** DELETE /:id - Delete a given entity */
 	delete({ appliance }, res) {
-		appliances.splice(appliances.indexOf(appliance), 1);
-		res.sendStatus(204);
+		res.sendStatus(418);
 	}
 });
