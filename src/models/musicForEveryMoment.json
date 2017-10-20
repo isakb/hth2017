@@ -35,5 +35,28 @@
   "Cooking.Oven.Program.HeatingMode.PizzaSetting":
     [
       "spotify:track:4dFJ1RKof1kTSTEp3CjcBE"
-    ]
+    ],
+
+  "Cooking.Oven.Program.HeatingMode.TopBottomHeating":
+    [
+      "spotify:track:6YmnDBo2oUE99O7aR6Mj4p"
+    ],
+  "Cooking.Oven.Program.HeatingMode.HotAir":
+    [
+      "spotify:track:2bI9SAoXPVKpz8xx5IToQW"
+    ],
+
+  "Dishcare.Dishwasher.Program.Auto1": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
+  "Dishcare.Dishwasher.Program.Auto2": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
+  "Dishcare.Dishwasher.Program.Auto3": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
+  "Dishcare.Dishwasher.Program.Eco50": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
+  "Dishcare.Dishwasher.Program.Quick45": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
+  "LaundryCare.Washer.Program.Cotton": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
+  "LaundryCare.Washer.Program.EasyCare": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
+  "LaundryCare.Washer.Program.Mix": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
+  "LaundryCare.Washer.Program.Silk": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
+  "LaundryCare.Washer.Program.Wool": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
+  "LaundryCare.Dryer.Program.Cotton": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
+  "LaundryCare.Dryer.Program.Synthetic": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
+  "LaundryCare.Dryer.Program.Mix": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"]
 }
