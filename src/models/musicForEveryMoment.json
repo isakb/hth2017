@@ -1,35 +1,32 @@
 {
   "ConsumerProducts.CoffeeMaker.Program.Beverage.Espresso":
     [
-      "spotify:track:2q639nRzC2ufsFQaH6EBWw",
-      "spotify:track:3IRwLjfEmiZOkDvSiOP5hP"
+      "spotify:album:0a7mA81EfBEukuUyGY9lbf"
     ],
 
   "ConsumerProducts.CoffeeMaker.Program.Beverage.EspressoMacchiato":
     [
-      "spotify:track:5o49YYBTuhwQQPMy1e5O9p"
+      "spotify:track:56IQUfsUskt9VHe6YM6kue"
     ],
 
   "ConsumerProducts.CoffeeMaker.Program.Beverage.Coffee":
     [
-      "spotify:track:4WOruM7TiQSETsWYy8bDSX",
-      "spotify:track:6w3PTK24KMiBjZp2GyzYND",
-      "spotify:track:3SD11QnefCc3RNfKzxKMmJ"
+      "spotify:track:1MF4DwFTZsf9vZGrfdnN8j"
     ],
 
   "ConsumerProducts.CoffeeMaker.Program.Beverage.Cappuccino":
     [
-      "spotify:track:3k8Yn4KMKsV4We5D0rMc9u"
+      "spotify:track:2S1zA962KPcAxF0OaKbQkU"
     ],
 
   "ConsumerProducts.CoffeeMaker.Program.Beverage.LatteMacchiato":
     [
-      "spotify:track:3Ghmv4cxg5RkRg6gx0Tp6m"
+      "spotify:track:4WOruM7TiQSETsWYy8bDSX"
     ],
 
   "ConsumerProducts.CoffeeMaker.Program.Beverage.CaffeLatte":
     [
-      "spotify:track:2L0fwDXNg1brk5Wt2YzuCJ"
+      "spotify:track:6w3PTK24KMiBjZp2GyzYND"
     ],
 
   "Cooking.Oven.Program.HeatingMode.PizzaSetting":
@@ -39,24 +36,24 @@
 
   "Cooking.Oven.Program.HeatingMode.TopBottomHeating":
     [
-      "spotify:track:6YmnDBo2oUE99O7aR6Mj4p"
+      "spotify:track:5DI9jxTHrEiFAhStG7VA8E"
     ],
   "Cooking.Oven.Program.HeatingMode.HotAir":
     [
-      "spotify:track:2bI9SAoXPVKpz8xx5IToQW"
+      "spotify:track:5FLctoy4mpCxLJ1QPneTOV"
     ],
 
-  "Dishcare.Dishwasher.Program.Auto1": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
-  "Dishcare.Dishwasher.Program.Auto2": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
-  "Dishcare.Dishwasher.Program.Auto3": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
-  "Dishcare.Dishwasher.Program.Eco50": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
-  "Dishcare.Dishwasher.Program.Quick45": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
-  "LaundryCare.Washer.Program.Cotton": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
-  "LaundryCare.Washer.Program.EasyCare": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
-  "LaundryCare.Washer.Program.Mix": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
-  "LaundryCare.Washer.Program.Silk": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
-  "LaundryCare.Washer.Program.Wool": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
-  "LaundryCare.Dryer.Program.Cotton": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
-  "LaundryCare.Dryer.Program.Synthetic": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"],
-  "LaundryCare.Dryer.Program.Mix": ["spotify:track:33UGPEhaJ4ooUjJACViv3A"]
+  "Dishcare.Dishwasher.Program.Auto1": ["spotify:track:55YB8lj4eOEdEv9Xn5fzcL"],
+  "Dishcare.Dishwasher.Program.Auto2": ["spotify:track:22RxilGS5NSRe2ELlyKeTi"],
+  "Dishcare.Dishwasher.Program.Auto3": ["spotify:track:6uqTETWok9npbL4c9cuLVh"],
+  "Dishcare.Dishwasher.Program.Eco50": ["spotify:track:5hsul6oJHjJ7wbV9lky88A"],
+  "Dishcare.Dishwasher.Program.Quick45": ["spotify:track:6SaeXxdt0Id6ZzmX0ZGTQK"],
+  "LaundryCare.Washer.Program.Cotton": ["spotify:track:7mrdHjkfEFTXCniqDTOYHM"],
+  "LaundryCare.Washer.Program.EasyCare": ["spotify:track:6sy1sSxrL1VEXwBaGAM8CX"],
+  "LaundryCare.Washer.Program.Mix": ["spotify:track:1pVFchEqnrpIEtuGrB4srT"],
+  "LaundryCare.Washer.Program.Silk": ["spotify:track:5VWtavZNYlK6m6MQY6YRg1"],
+  "LaundryCare.Washer.Program.Wool": ["spotify:track:6llpUv4y59Kd5ZqQ2gugbb"],
+  "LaundryCare.Dryer.Program.Cotton": ["spotify:track:25fowDvPAUn4hUkZKzudZp"],
+  "LaundryCare.Dryer.Program.Synthetic": ["spotify:track:5SV7IlVfw952Re11yrWybh"],
+  "LaundryCare.Dryer.Program.Mix": ["spotify:track:3jP3coGrROR7kjiDlpoRph"]
 }
