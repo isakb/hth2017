@@ -2,6 +2,7 @@ import { version } from '../../package.json';
 import { Router } from 'express';
 import appliances from './appliances';
 import spotify from './devices';
+import trigger from './trigger';
 
 export default ({ config, db }) => {
 	let api = Router();

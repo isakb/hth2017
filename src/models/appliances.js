@@ -9,7 +9,7 @@ const apiHost = 'https://developer.home-connect.com';
 
 let accessToken;
 
-const scopes = [''];
+const scopes = ['IdentifyAppliance', 'Monitor', 'Control', 'Settings']; // 'CoffeeMaker-Control', 'CoffeeMaker-Monitor', ];
 
 const getCode = () => {
   return axios.get(apiHost + '/security/oauth/authorize', {
@@ -119,5 +119,25 @@ appliances.monitorAll = (callback = defaultEventCallback) => {
     });
   });
 };
+
+appliances.activateProgram = (homeApplianceId, key, options) => {
+  return getApi()
+    .then(api => api.put(
+      `/homeappliances/${homeApplianceId}/programs/active`,
+      {
+        data: {
+          key,
+          options
+        }
+      },
+      {
+        headers: {
+          'Content-Type': 'application/vnd.bsh.sdk.v1+json',
+          'Accept-Language': 'en-US'
+        }
+      }
+    )
+      .then(r => r));
+}
 
 export default appliances;
