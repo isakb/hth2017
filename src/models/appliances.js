@@ -2,16 +2,50 @@ const {clientId, clientSecret} = require('../api-config');
 const queryString = require('query-string');
 const EventSource = require('eventsource');
 const axios = require('axios');
+const opn = require('opn');
 const musicForEveryMoment = require('./musicForEveryMoment.json');
 import devices from './devices';
 
-const apiHost = 'https://developer.home-connect.com';
+const apiHost = process.env.PRODUCTION ?
+  'https://api.home-connect.com' :
+  'https://developer.home-connect.com';
+
+axios.interceptors.request.use(request => {
+  console.log('Starting Request', request)
+  return request
+})
+
+axios.interceptors.response.use(response => {
+  console.log('Response:', response)
+  return response
+})
 
 let accessToken;
+let codeResolver;
 
-const scopes = ['IdentifyAppliance', 'Monitor', 'Control', 'Settings']; // 'CoffeeMaker-Control', 'CoffeeMaker-Monitor', ];
+const scopes = ['IdentifyAppliance', 'Monitor', 'Control', 'Settings'];
 
 const getCode = () => {
+
+  if (process.env.PRODUCTION) {
+    var url = apiHost + '/security/oauth/authorize' +
+      '?response_type=code' +
+      '&client_id=' + clientId +
+      '&redirect_uri=' + encodeURIComponent('http://localhost:8080/api/auth') +
+      '&scope=' + encodeURIComponent(scopes.join(' '));
+
+    console.log('Go to ' + url);
+    opn(url);
+
+    // var url2 = 'http://localhost:8080/api/auth?embed=' + encodeURIComponent(url);
+    // opn(url2);
+    // opn(url);
+
+    return new Promise((resolve, reject) => {
+      codeResolver = resolve;
+    });
+  }
+
   return axios.get(apiHost + '/security/oauth/authorize', {
     params: {
       response_type: 'code',
@@ -37,6 +71,7 @@ const getToken = (code) => {
     client_id: clientId,
     client_secret: clientSecret,
     grant_type: 'authorization_code',
+    redirect_uri: 'http://localhost:8080/api/auth',
     code: code,
   });
   return axios.post(url, qs, {
@@ -50,13 +85,25 @@ const getToken = (code) => {
 const apiPromise = getCode().then(getToken).then(token => {
   console.log('API ready. Using token:', token);
   accessToken = token;
-  return axios.create({
+  const a = axios.create({
     baseURL: `${apiHost}/api`,
     headers: {
       'Authorization': `Bearer ${token}`,
       'Accept': 'application/vnd.bsh.sdk.v1+json',
     },
   });
+
+  a.interceptors.request.use(request => {
+    console.log('Starting Request', request)
+    return request
+  })
+
+  a.interceptors.response.use(response => {
+    console.log('Response:', response)
+    return response
+  })
+
+  return a;
 });
 
 const getApi = () => {
@@ -137,7 +184,19 @@ appliances.activateProgram = (homeApplianceId, key, options) => {
         }
       }
     )
-      .then(r => r));
+      .then(r => {
+        console.log(r);
+        return r;
+      })
+      .catch(e => {
+        console.log('err', e);
+      }));
+}
+
+appliances.setAuthCode = (authcode) => {
+  if (codeResolver) {
+    codeResolver(authcode);
+  }
 }
 
 export default appliances;

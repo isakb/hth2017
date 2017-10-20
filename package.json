@@ -36,6 +36,7 @@
     "eventsource": "^1.0.5",
     "express": "^4.13.3",
     "morgan": "^1.8.0",
+    "opn": "^5.1.0",
     "query-string": "^5.0.0",
     "resource-router-middleware": "^0.6.0",
     "sse-node": "^1.0.2"
