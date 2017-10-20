@@ -37,10 +37,6 @@ const getCode = () => {
     console.log('Go to ' + url);
     opn(url);
 
-    // var url2 = 'http://localhost:8080/api/auth?embed=' + encodeURIComponent(url);
-    // opn(url2);
-    // opn(url);
-
     return new Promise((resolve, reject) => {
       codeResolver = resolve;
     });
@@ -71,7 +67,7 @@ const getToken = (code) => {
     client_id: clientId,
     client_secret: clientSecret,
     grant_type: 'authorization_code',
-    redirect_uri: 'http://localhost:8080/api/auth',
+    redirect_uri: process.env.PRODUCTION ? 'http://localhost:8080/api/auth' : undefined,
     code: code,
   });
   return axios.post(url, qs, {
@@ -132,14 +128,66 @@ appliances.watch = (homeApplianceId, callback) => {
   });
 };
 
+let lastPlayRequest = Date.now();
+let playPrimed = false;
+let lastProgram = null;
+
 const defaultEventCallback = ({data}) => {
   const state = JSON.parse(data);
-  const programChange = state.items.find(i => i.key === 'BSH.Common.Root.ActiveProgram');
+  console.log('got state', state);
+
+  const progressUpdate = state.items
+    .find(i => i.key === 'BSH.Common.Option.ProgramProgress');
+
+  const programChange = state.items
+    .find(i => i.key === 'BSH.Common.Root.SelectedProgram');
+
+  const activeProgramChange = state.items
+    .find(i => i.key === 'BSH.Common.Root.ActiveProgram');
+
+  console.log('programChange', programChange);
+  console.log('progressUpdate', progressUpdate);
+
   if (programChange && programChange.value) {
     console.log('The program changed to:', programChange.value);
-    console.log('Details', programChange);
-    const uriCandidates = musicForEveryMoment[programChange.value];
-    if (uriCandidates) {
+  }
+
+  if (activeProgramChange) {
+    if (activeProgramChange.value) {
+      if (activeProgramChange.value != lastProgram) {
+        console.log('The active program set to:', activeProgramChange.value);
+        lastProgram = activeProgramChange.value;
+        console.log('Prime play');
+        playPrimed = true;
+      }
+    } else {
+      console.log('The active program stopped');
+      lastProgram = null;
+    }
+  }
+
+  if (progressUpdate) {
+    console.log('The progress changed to:', progressUpdate.value);
+    if (playPrimed) {
+      playPrimed = false;
+      console.log('The program just started.');
+
+      var T = Date.now();
+      var DT = T - lastPlayRequest;
+      console.log('Time since last call', DT);
+
+      if (DT < 10000) {
+        console.log('Ignoring repeated duplicate event...')
+        return;
+      }
+
+      lastPlayRequest = T;
+
+      const uriCandidates = musicForEveryMoment[lastProgram];
+      if (!uriCandidates) {
+        return;
+      }
+
       const randomOffset = Math.floor(Math.random() * uriCandidates.length);
       const uri = uriCandidates[randomOffset];
       console.log(
@@ -147,9 +195,6 @@ const defaultEventCallback = ({data}) => {
         'and the selected URI is', uri);
       devices.play(uriCandidates, randomOffset);
     }
-  } else if (programChange && programChange.value === null) {
-    console.log('The program changed to default state.');
-    devices.pause();
   }
 };
 
